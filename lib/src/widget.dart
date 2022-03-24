@@ -335,13 +335,13 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
           ? widget.errorBuilder?.call(context) ?? C2Placeholder(
               padding: widget.padding ?? ChipsChoice.defaultPadding,
               style: widget.errorStyle!,
-              align: widget.errorAlign!,
+              align: widget.errorAlign,
               message: error.toString(),
             )
           : widget.placeholderBuilder?.call(context) ?? C2Placeholder(
               padding: widget.padding ?? ChipsChoice.defaultPadding,
-              style: widget.placeholderStyle!,
-              align: widget.placeholderAlign!,
+              style: widget.placeholderStyle,
+              align: widget.placeholderAlign,
               message: placeholder,
             );
   }
