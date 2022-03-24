@@ -334,7 +334,7 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
         : error != null
           ? widget.errorBuilder?.call(context) ?? C2Placeholder(
               padding: widget.padding ?? ChipsChoice.defaultPadding,
-              style: widget.errorStyle!,
+              style: widget.errorStyle,
               align: widget.errorAlign,
               message: error.toString(),
             )
