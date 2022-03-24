@@ -6,23 +6,23 @@ import 'model/choice_style.dart';
 class C2Chip<T> extends StatelessWidget {
 
   /// choice item data
-  final C2Choice<T> data;
+  final C2Choice<T>? data;
 
   /// unselected choice style
-  final C2ChoiceStyle style;
+  final C2ChoiceStyle? style;
 
   /// selected choice style
-  final C2ChoiceStyle activeStyle;
+  final C2ChoiceStyle? activeStyle;
 
   /// label widget
-  final Widget label;
+  final Widget? label;
 
   /// avatar widget
-  final Widget avatar;
+  final Widget? avatar;
 
   /// default constructor
   const C2Chip({
-    Key key,
+    Key? key,
     @required this.data,
     @required this.style,
     @required this.activeStyle,
@@ -31,31 +31,31 @@ class C2Chip<T> extends StatelessWidget {
   }) : super(key: key);
 
   /// get shape border
-  static ShapeBorder getShapeBorder({
-    @required Color color,
-    double width,
-    BorderRadiusGeometry radius,
-    BorderStyle style,
+  static OutlinedBorder? getShapeBorder({
+    @required Color? color,
+    double? width,
+    BorderRadiusGeometry? radius,
+    BorderStyle? style,
   }) {
-    final BorderSide side = BorderSide(
-      color: color,
+    final BorderSide? side = BorderSide(
+      color: color!,
       width: width ?? 1.0,
       style: style ?? BorderStyle.solid
     );
     return radius == null
-      ? StadiumBorder(side: side)
+      ? StadiumBorder(side: side!)
       : RoundedRectangleBorder(
           borderRadius: radius,
-          side: side,
+          side: side!,
         );
   }
 
   /// get shape border
-  static ShapeBorder getAvatarShapeBorder({
-    @required Color color,
-    double width,
-    BorderRadiusGeometry radius,
-    BorderStyle style,
+  static OutlinedBorder getAvatarShapeBorder({
+    @required Color? color,
+    double? width,
+    BorderRadiusGeometry? radius,
+    BorderStyle? style,
   }) {
     final BorderSide side = BorderSide(
       color: color ?? const Color(0xFF000000),
@@ -75,15 +75,15 @@ class C2Chip<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final C2ChoiceStyle effectiveStyle = data.selected
+    final C2ChoiceStyle? effectiveStyle = data!.selected == true
       ? activeStyle
       : style;
 
-    final bool isDark = effectiveStyle.brightness == Brightness.dark;
+    final bool isDark = effectiveStyle!.brightness == Brightness.dark;
 
     final Color textColor = isDark
       ? const Color(0xFFFFFFFF)
-      : effectiveStyle.color;
+      : effectiveStyle.color!;
 
     final Color borderColor = isDark
       ? const Color(0x00000000)
@@ -91,21 +91,21 @@ class C2Chip<T> extends StatelessWidget {
 
     final Color checkmarkColor = isDark
       ? textColor
-      : activeStyle.color;
+      : activeStyle!.color!;
 
     final Color backgroundColor = isDark
-      ? style.color
+      ? style!.color!
       : const Color(0x00000000);
 
     final Color selectedBackgroundColor = isDark
-      ? activeStyle.color
+      ? activeStyle!.color!
       : const Color(0x00000000);
 
     return Padding(
-      padding: effectiveStyle.margin,
+      padding: effectiveStyle.margin!,
       child: RawChip(
         padding: effectiveStyle.padding,
-        label: label ?? Text(data.label),
+        label: label ?? Text(data!.label!),
         labelStyle: TextStyle(color: textColor).merge(effectiveStyle.labelStyle),
         labelPadding: effectiveStyle.labelPadding,
         avatar: avatar,
@@ -115,8 +115,8 @@ class C2Chip<T> extends StatelessWidget {
           radius: effectiveStyle.avatarBorderRadius,
           style: effectiveStyle.avatarBorderStyle,
         ),
-        tooltip: data.tooltip,
-        shape: effectiveStyle.borderShape ?? getShapeBorder(
+        tooltip: data!.tooltip,
+        shape: getShapeBorder(
           color: effectiveStyle.borderColor ?? borderColor,
           width: effectiveStyle.borderWidth,
           radius: effectiveStyle.borderRadius,
@@ -125,17 +125,17 @@ class C2Chip<T> extends StatelessWidget {
         clipBehavior: effectiveStyle.clipBehavior ?? Clip.none,
         elevation: effectiveStyle.elevation ?? 0,
         pressElevation: effectiveStyle.pressElevation ?? 0,
-        shadowColor: style.color,
-        selectedShadowColor: activeStyle.color,
+        shadowColor: style!.color,
+        selectedShadowColor: activeStyle!.color,
         backgroundColor: backgroundColor,
         selectedColor: selectedBackgroundColor,
         checkmarkColor: checkmarkColor,
         showCheckmark: effectiveStyle.showCheckmark,
         materialTapTargetSize: effectiveStyle.materialTapTargetSize,
         disabledColor: effectiveStyle.disabledColor ?? Colors.blueGrey.withOpacity(.1),
-        isEnabled: data.disabled != true,
-        selected: data.selected,
-        onSelected: (_selected) => data.select(_selected),
+        isEnabled: data!.disabled != true,
+        selected: data!.selected!,
+        onSelected: (_selected) => data!.select!(_selected),
       ),
     );
   }

@@ -320,7 +320,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                         children: [
                           FormField<List<String>>(
-                            autovalidate: true,
                             initialValue: formValue,
                             onSaved: (val) => setState(() => formValue = val),
                             validator: (value) {
@@ -390,10 +389,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                RaisedButton(
+                                ElevatedButton(
                                   child: const Text('Submit'),
-                                  color: Colors.blueAccent,
-                                  textColor: Colors.white,
+                                  style: ElevatedButton.styleFrom(
+
+                      primary: Colors.blueAccent,
+
+                      textStyle: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
                                   onPressed: () {
                                     // Validate returns true if the form is valid, or false otherwise.
                                     if (formKey.currentState.validate()) {

@@ -9,115 +9,115 @@ import 'chip.dart';
 class ChipsChoice<T> extends StatefulWidget {
 
   /// List of choice item
-  final List<C2Choice<T>> choiceItems;
+  final List<C2Choice<T>>? choiceItems;
 
   /// Async loader of choice items
-  final C2ChoiceLoader<T> choiceLoader;
+  final C2ChoiceLoader<T>? choiceLoader;
 
   /// Choice unselected item style
-  final C2ChoiceStyle choiceStyle;
+  final C2ChoiceStyle? choiceStyle;
 
   /// Choice selected item style
-  final C2ChoiceStyle choiceActiveStyle;
+  final C2ChoiceStyle? choiceActiveStyle;
 
   /// Builder for custom choice item label
-  final C2Builder<T> choiceLabelBuilder;
+  final C2Builder<T>? choiceLabelBuilder;
 
   /// Builder for custom choice item label
-  final C2Builder<T> choiceAvatarBuilder;
+  final C2Builder<T>? choiceAvatarBuilder;
 
   /// Builder for custom choice item
-  final C2Builder<T> choiceBuilder;
+  final C2Builder<T>? choiceBuilder;
 
   /// Builder for spinner widget
-  final WidgetBuilder spinnerBuilder;
+  final WidgetBuilder? spinnerBuilder;
 
   /// Builder for placeholder widget
-  final WidgetBuilder placeholderBuilder;
+  final WidgetBuilder? placeholderBuilder;
 
   /// Builder for placeholder widget
-  final WidgetBuilder errorBuilder;
+  final WidgetBuilder? errorBuilder;
 
   /// Whether the chips is wrapped or scrollable
-  final bool wrapped;
+  final bool? wrapped;
 
   /// Container padding
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// The direction to use as the main axis.
-  final Axis direction;
+  final Axis? direction;
 
   /// Determines the order to lay children out vertically and how to interpret start and end in the vertical direction.
-  final VerticalDirection verticalDirection;
+  final VerticalDirection? verticalDirection;
 
   /// Determines the order to lay children out horizontally and how to interpret start and end in the horizontal direction.
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   /// if [wrapped] is [false], How the scroll view should respond to user input.
-  final ScrollPhysics scrollPhysics;
+  final ScrollPhysics? scrollPhysics;
 
   /// if [wrapped] is [false], How much space should be occupied in the main axis.
-  final MainAxisSize mainAxisSize;
+  final MainAxisSize? mainAxisSize;
 
   /// if [wrapped] is [false], How the children should be placed along the main axis.
-  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisAlignment? mainAxisAlignment;
 
   /// if [wrapped] is [false], How the children should be placed along the cross axis.
-  final CrossAxisAlignment crossAxisAlignment;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   /// if [wrapped] is [true], how the children within a run should be aligned relative to each other in the cross axis.
-  final WrapCrossAlignment wrapCrossAlignment;
+  final WrapCrossAlignment? wrapCrossAlignment;
 
   /// if [wrapped] is [true], determines how wrap will align the objects
-  final WrapAlignment alignment;
+  final WrapAlignment? alignment;
 
   /// if [wrapped] is [true], how the runs themselves should be placed in the cross axis.
-  final WrapAlignment runAlignment;
+  final WrapAlignment? runAlignment;
 
   /// if [wrapped] is [true], how much space to place between children in a run in the main axis.
-  final double spacing;
+  final double? spacing;
 
   /// if [wrapped] is [true], how much space to place between the runs themselves in the cross axis.
-  final double runSpacing;
+  final double? runSpacing;
 
   /// Clip behavior
-  final Clip clipBehavior;
+  final Clip? clipBehavior;
 
   /// String to display when choice items is empty
-  final String placeholder;
+  final String? placeholder;
 
   /// placeholder text style
-  final TextStyle placeholderStyle;
+  final TextStyle? placeholderStyle;
 
   /// placeholder text align
-  final TextAlign placeholderAlign;
+  final TextAlign? placeholderAlign;
 
   /// error text style
-  final TextStyle errorStyle;
+  final TextStyle? errorStyle;
 
   /// error text align
-  final TextAlign errorAlign;
+  final TextAlign? errorAlign;
 
   /// spinner size
-  final double spinnerSize;
+  final double? spinnerSize;
 
   /// spinner color
-  final Color spinnerColor;
+  final Color? spinnerColor;
 
   /// spinner thickness
-  final double spinnerThickness;
+  final double? spinnerThickness;
 
-  final T _value;
-  final List<T> _values;
-  final C2Changed<T> _onChangedSingle;
-  final C2Changed<List<T>> _onChangedMultiple;
-  final bool _isMultiChoice;
+  final T? _value;
+  final List<T>? _values;
+  final C2Changed<T>? _onChangedSingle;
+  final C2Changed<List<T>>? _onChangedMultiple;
+  final bool? _isMultiChoice;
 
   /// Costructor for single choice
   ChipsChoice.single({
-    Key key,
-    @required T value,
-    @required C2Changed<T> onChanged,
+    Key? key,
+    @required T? value,
+    @required C2Changed<T>? onChanged,
     @required this.choiceItems,
     this.choiceLoader,
     this.choiceStyle,
@@ -167,9 +167,9 @@ class ChipsChoice<T> extends StatefulWidget {
 
   /// Constructor for multiple choice
   ChipsChoice.multiple({
-    Key key,
-    @required List<T> value,
-    @required C2Changed<List<T>> onChanged,
+    Key? key,
+    @required List<T>? value,
+    @required C2Changed<List<T>>? onChanged,
     @required this.choiceItems,
     this.choiceLoader,
     this.choiceStyle,
@@ -246,7 +246,7 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
   ThemeData get theme => Theme.of(context);
 
   /// default chip margin
-  EdgeInsetsGeometry get defaultChipMargin => widget.wrapped
+  EdgeInsetsGeometry get defaultChipMargin => widget.wrapped == true
     ? ChipsChoice.defaultWrappedChipMargin
     : ChipsChoice.defaultScrollableChipMargin;
 
@@ -266,13 +266,13 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
   String get placeholder => widget.placeholder ?? ChipsChoice.defaultPlaceholder;
 
   /// choice items
-  List<C2Choice<T>> choiceItems;
+  List<C2Choice<T>>? choiceItems;
 
   /// choice loader process indicator
   bool loading = false;
 
   /// choice loader error
-  Error error;
+  Error? error;
 
   @override
   void setState(fn) {
@@ -306,13 +306,13 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
         loading = true;
       });
       if (widget.choiceLoader != null) {
-        final List<C2Choice<T>> items = await widget.choiceLoader();
+        final List<C2Choice<T>> items = await widget.choiceLoader!();
         setState(() => choiceItems = items);
       } else {
         setState(() => choiceItems = widget.choiceItems);
       }
     } catch (e) {
-      setState(() => error = e);
+      setState(() => error = e as Error);
     } finally {
       setState(() => loading = false);
     }
@@ -323,25 +323,25 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
     return loading == true
       ? C2Spinner(
           padding: widget.padding ?? ChipsChoice.defaultPadding,
-          size: widget.spinnerSize,
-          color: widget.spinnerColor,
-          thickness: widget.spinnerThickness,
+          size: widget.spinnerSize!,
+          color: widget.spinnerColor!,
+          thickness: widget.spinnerThickness!,
         )
-      : choiceItems != null && choiceItems.isNotEmpty
+      : choiceItems != null && choiceItems!.isNotEmpty
         ? widget.wrapped != true
           ? listScrollable
           : listWrapped
         : error != null
           ? widget.errorBuilder?.call(context) ?? C2Placeholder(
               padding: widget.padding ?? ChipsChoice.defaultPadding,
-              style: widget.errorStyle,
-              align: widget.errorAlign,
+              style: widget.errorStyle!,
+              align: widget.errorAlign!,
               message: error.toString(),
             )
           : widget.placeholderBuilder?.call(context) ?? C2Placeholder(
               padding: widget.padding ?? ChipsChoice.defaultPadding,
-              style: widget.placeholderStyle,
-              align: widget.placeholderAlign,
+              style: widget.placeholderStyle!,
+              align: widget.placeholderAlign!,
               message: placeholder,
             );
   }
@@ -350,25 +350,25 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
   Widget get listScrollable {
     return SingleChildScrollView(
       padding: widget.padding ?? ChipsChoice.defaultScrollablePadding,
-      scrollDirection: widget.direction,
-      clipBehavior: widget.clipBehavior,
+      scrollDirection: widget.direction!,
+      clipBehavior: widget.clipBehavior!,
       physics: widget.scrollPhysics,
       child: Flex(
-        direction: widget.direction,
-        verticalDirection: widget.verticalDirection,
+        direction: widget.direction!,
+        verticalDirection: widget.verticalDirection!,
         textDirection: widget.textDirection,
-        clipBehavior: widget.clipBehavior,
-        crossAxisAlignment: widget.crossAxisAlignment,
-        mainAxisAlignment: widget.mainAxisAlignment,
-        mainAxisSize: widget.mainAxisSize,
-        children: choiceChips,
+        clipBehavior: widget.clipBehavior!,
+        crossAxisAlignment: widget.crossAxisAlignment!,
+        mainAxisAlignment: widget.mainAxisAlignment!,
+        mainAxisSize: widget.mainAxisSize!,
+        children: choiceChips!,
       ),
     );
   }
 
   Widget get listScrollableVertical {
     return ListView.builder(
-      itemCount: choiceItems.length,
+      itemCount: choiceItems!.length,
       itemBuilder: (context, i) => choiceChipsGenerator(i),
     );
   }
@@ -378,56 +378,57 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
     return Padding(
       padding: widget.padding ?? ChipsChoice.defaultWrappedPadding,
       child: Wrap(
-        direction: widget.direction,
+        direction: widget.direction!,
         textDirection: widget.textDirection,
-        verticalDirection: widget.verticalDirection,
-        alignment: widget.alignment,
-        runAlignment: widget.runAlignment,
-        crossAxisAlignment: widget.wrapCrossAlignment,
-        spacing: widget.spacing, // gap between adjacent chips
-        runSpacing: widget.runSpacing, // gap between lines
-        clipBehavior: widget.clipBehavior,
-        children: choiceChips,
+        verticalDirection: widget.verticalDirection!,
+        alignment: widget.alignment!,
+        runAlignment: widget.runAlignment!,
+        crossAxisAlignment: widget.wrapCrossAlignment!,
+        spacing: widget.spacing!, // gap between adjacent chips
+        runSpacing: widget.runSpacing!, // gap between lines
+        clipBehavior: widget.clipBehavior!,
+        children: choiceChips!,
       ),
     );
   }
 
   /// generate the choice chips
-  List<Widget> get choiceChips {
+  List<Widget>? get choiceChips {
+
     return List<Widget>
-      .generate(choiceItems.length, choiceChipsGenerator)
+      .generate(choiceItems!.length, choiceChipsGenerator)
       .where((e) => e != null).toList();
   }
 
   /// choice chips generator
   Widget choiceChipsGenerator (int i) {
-    final C2Choice<T> item = choiceItems[i].copyWith(
-      selected: widget._isMultiChoice
-        ? widget._values.contains(choiceItems[i].value)
-        : widget._value == choiceItems[i].value,
-      select: _select(choiceItems[i].value),
+    final C2Choice<T> item = choiceItems![i].copyWith(
+      selected: widget._isMultiChoice == true
+        ? widget._values!.contains(choiceItems![i].value)
+        : widget._value == choiceItems![i].value,
+      select: _select(choiceItems![i].value!),
     );
     return item.hidden == false
       ? widget.choiceBuilder?.call(item) ?? C2Chip(
           data: item,
           style: defaultChoiceStyle
-            .merge(widget.choiceStyle)
-            .merge(item.style),
+            .merge(widget.choiceStyle!)
+            .merge(item.style!),
           activeStyle: defaultActiveChoiceStyle
-            .merge(widget.choiceStyle)
-            .merge(item.style)
-            .merge(widget.choiceActiveStyle)
-            .merge(item.activeStyle),
+            .merge(widget.choiceStyle!)
+            .merge(item.style!)
+            .merge(widget.choiceActiveStyle!)
+            .merge(item.activeStyle!),
           label: widget.choiceLabelBuilder?.call(item),
           avatar: widget.choiceAvatarBuilder?.call(item),
         )
-      : null;
+      : Container();
   }
 
   /// return the selection function
   Function(bool selected) _select(T value) {
     return (bool selected) {
-      if (widget._isMultiChoice) {
+      if (widget._isMultiChoice == true) {
         List<T> values = List.from(widget._values ?? []);
         if (selected) {
           values.add(value);
@@ -446,20 +447,20 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
 class C2Spinner extends StatelessWidget {
 
   /// spinner padding
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// spinner size
-  final double size;
+  final double? size;
 
   /// spinner color
-  final Color color;
+  final Color? color;
 
   /// spinner thickness
-  final double thickness;
+  final double? thickness;
 
   /// default constructor
   const C2Spinner({
-    Key key,
+    Key? key,
     this.padding,
     this.size,
     this.color,
@@ -485,7 +486,7 @@ class C2Spinner extends StatelessWidget {
           height: size ?? C2Spinner.defaultSize,
           child: CircularProgressIndicator(
             strokeWidth: thickness ?? C2Spinner.defaultThickness,
-            valueColor: AlwaysStoppedAnimation<Color>(color ?? Theme.of(context).accentColor),
+            valueColor: AlwaysStoppedAnimation<Color>(color ?? Theme.of(context).colorScheme.secondary),
           ),
         ),
       ),
@@ -496,20 +497,20 @@ class C2Spinner extends StatelessWidget {
 class C2Placeholder extends StatelessWidget {
 
   /// String to display
-  final String message;
+  final String? message;
 
   /// placeholder text style
-  final TextStyle style;
+  final TextStyle? style;
 
   /// placeholder text align
-  final TextAlign align;
+  final TextAlign? align;
 
   /// placeholder padding
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// default constructor
   const C2Placeholder({
-    Key key,
+    Key? key,
     @required this.message,
     this.style,
     this.align,
@@ -530,7 +531,7 @@ class C2Placeholder extends StatelessWidget {
     return Padding(
       padding: padding ?? C2Placeholder.defaultPadding,
       child: Text(
-        message,
+        message!,
         textAlign: align ?? C2Placeholder.defaultAlign,
         style: C2Placeholder.defaultStyle.merge(style)
       ),
