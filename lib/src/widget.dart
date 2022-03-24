@@ -323,9 +323,9 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
     return loading == true
       ? C2Spinner(
           padding: widget.padding ?? ChipsChoice.defaultPadding,
-          size: widget.spinnerSize!,
-          color: widget.spinnerColor!,
-          thickness: widget.spinnerThickness!,
+          size: widget.spinnerSize,
+          color: widget.spinnerColor,
+          thickness: widget.spinnerThickness,
         )
       : choiceItems != null && choiceItems!.isNotEmpty
         ? widget.wrapped != true
@@ -412,13 +412,13 @@ class ChipsChoiceState<T> extends State<ChipsChoice<T>> {
       ? widget.choiceBuilder?.call(item) ?? C2Chip(
           data: item,
           style: defaultChoiceStyle
-            .merge(widget.choiceStyle!)
-            .merge(item.style!),
+            .merge(widget.choiceStyle ?? defaultChoiceStyle)
+            .merge(item.style ?? defaultChoiceStyle),
           activeStyle: defaultActiveChoiceStyle
-            .merge(widget.choiceStyle!)
-            .merge(item.style!)
-            .merge(widget.choiceActiveStyle!)
-            .merge(item.activeStyle!),
+            .merge(widget.choiceStyle ?? defaultActiveChoiceStyle)
+            .merge(item.style ?? defaultActiveChoiceStyle)
+            .merge(widget.choiceActiveStyle ?? defaultActiveChoiceStyle)
+            .merge(item.activeStyle ?? defaultActiveChoiceStyle),
           label: widget.choiceLabelBuilder?.call(item),
           avatar: widget.choiceAvatarBuilder?.call(item),
         )

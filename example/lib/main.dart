@@ -359,7 +359,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      state.errorText ?? state.value.length.toString() + '/5 selected',
+                                      state.errorText ?? state.value?.length.toString() + '/5 selected',
                                       style: TextStyle(
                                         color: state.hasError
                                           ? Colors.redAccent
